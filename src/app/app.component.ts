@@ -1,10 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { GithubApiService } from './services/github-api.service';
+import { Repository } from './types/repository.type';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'favorite-managing-app';
+export class AppComponent implements OnInit {
+  title = 'app';
+  repos$: Observable<Repository[]>;
+  showDisclaimer: boolean = true;
+
+  constructor(private githubApiService: GithubApiService) {}
+
+  ngOnInit() {
+    
+  }
+
+  search(word: string) {
+    console.log(`search: ${word}`);
+    this.repos$ = this.githubApiService.searchRepos(word);
+  }
 }
