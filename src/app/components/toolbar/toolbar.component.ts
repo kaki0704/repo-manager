@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class ToolbarComponent implements OnInit, OnDestroy {
   @Output() search = new EventEmitter<string>();
 
-  title = 'gh-client';
+  title = 'github favorite manager';
   searchWord = new FormControl();
   private subscription: Subscription;
 
