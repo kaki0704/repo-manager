@@ -28,16 +28,11 @@
 	</div>
 
 	<div class="list">
-			<h3 class="list-title">Tasks to Do
+			<h3 class="list-title">Tasks to Do 
 				<button *ngIf="show" type="button" class="btn btn-light rounded-pill" (click)="save()">保存</button>
 			</h3>	
 			<ul class="list-items ">
 					<app-repository *ngFor="let favorite_item of favorite_list" [repo]="favorite_item" > </app-repository>
 			</ul>
 	</div>
-
-
-	
-
 </section>
-<!-- End of lists container -->

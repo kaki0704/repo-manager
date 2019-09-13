@@ -21,6 +21,9 @@ export class AppComponent implements OnInit {
 
   
   constructor(private githubApiService: GithubApiService) {
+    if(localStorage.getItem('json') == null){
+      localStorage.setItem('json', JSON.stringify(this.favorite_list));
+    }
     var data = localStorage.getItem('json');
     this.favorite_list = JSON.parse(data);
   }
@@ -54,6 +57,8 @@ export class AppComponent implements OnInit {
       }
     });
     this.show = true
+    console.log(this.selected)
+    console.log(this.favorite_list)
   }
 
   save(){
@@ -62,6 +67,9 @@ export class AppComponent implements OnInit {
 
   add(){
     for(let item of this.selected){
+      console.log(item)
+      console.log(this.selected)
+      console.log(this.favorite_list)
       this.favorite_list.push(item)
     }
   }
