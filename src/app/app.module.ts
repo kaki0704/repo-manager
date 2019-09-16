@@ -8,6 +8,8 @@ import { GithubApiService } from './services/github-api.service';
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { RepositoryComponent } from './components/repository/repository.component';
+import { SelectedComponent } from './components/selected/selected.component';
+import { FavoriteComponent } from './components/favorite/favorite.component';
 
 
 
@@ -15,7 +17,9 @@ import { RepositoryComponent } from './components/repository/repository.componen
   declarations: [
     AppComponent,
     ToolbarComponent,
-    RepositoryComponent
+    RepositoryComponent,
+    SelectedComponent,
+    FavoriteComponent
   ],
   imports: [
     BrowserModule,

@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { GithubApiService } from './services/github-api.service';
 import { Repository } from './types/repository.type';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { select_lists } from './lists/select-list'
+import { favorite_lists } from './lists/favorite-list'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   title = 'app';
-  repos$: Observable<Repository[]>;
-  showDisclaimer: boolean = true;
-  selected :Repository[] = new Array();
+  @Input() repos$: Observable<Repository[]>;
+  @Input() selected :Repository[] = select_lists 
   list :Repository[] =new Array();
-  favorite_list :Repository[] = new Array();
+  @Input() favorite_list :Repository[] = favorite_lists
   show :boolean = false
 
   
@@ -25,52 +26,67 @@ export class AppComponent implements OnInit {
       localStorage.setItem('json', JSON.stringify(this.favorite_list));
     }
     var data = localStorage.getItem('json');
-    this.favorite_list = JSON.parse(data);
+    let tmp_list = JSON.parse(data);
+    for(let item of tmp_list){
+      favorite_lists.push(item)
+    }
   }
 
   ngOnInit() {
-    
+    console.log(this.favorite_list)
   }
 
   search(word: string) {
     console.log(`search: ${word}`);
     this.repos$ = this.githubApiService.searchRepos(word);
+    console.log(this.repos$)
+    
+    
   }
 
   onClick(favorite: Repository){
-    let repo_item = {
-      id: favorite.id,
-      name: favorite.name,
-      full_name: favorite.full_name,
-      description: favorite.description,
-      url: favorite.url,
-      stargazers_count: favorite.stargazers_count,
-      forks_count: favorite.forks_count
+    if(this.favorite_list.length+this.selected.length+1 > 10){
+      alert("お気に入りリストには10件までしか登録できません")
     }
-    
-    this.list.push(repo_item)
-    let values = [];
-    this.selected = this.list.filter(e => {
-    if (values.indexOf(e["id"]) === -1) {
-      values.push(e["id"]);
-      return e;
+    let addable: Boolean = true
+    for(let item of this.selected){
+      if(item == favorite){
+        addable = false
       }
-    });
+    }
+    if(addable){
+      this.selected.push(favorite)
+    }
     this.show = true
-    console.log(this.selected)
-    console.log(this.favorite_list)
   }
 
   save(){
     localStorage.setItem('json', JSON.stringify(this.favorite_list));
+    alert("リポジトリを保存しました")
   }
 
   add(){
-    for(let item of this.selected){
-      console.log(item)
-      console.log(this.selected)
-      console.log(this.favorite_list)
-      this.favorite_list.push(item)
-    }
+    this.selected.forEach((k, index) =>{
+        this.favorite_list.push(k);
+      }
+    )
+    this.selected = []
+    this.show = false
+  }
+
+  remove(item: Repository, from: Repository[]){
+    from.forEach((k, index) =>{
+      if(k == item){
+        from.splice(index, 1)
+      }
+    })
+  }
+
+  delete(item: Repository){
+    this.selected.forEach((k, index) =>{
+      if(k == item){
+        this.selected.splice(index, 1)
+      }
+    })
   }
 }

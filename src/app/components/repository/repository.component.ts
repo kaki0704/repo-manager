@@ -13,8 +13,6 @@ export class RepositoryComponent implements OnInit {
 
   ngOnInit() {
   }
-  add(){
-    localStorage.setItem("boards", JSON.stringify(this.repo));
-  }
+  
 }
 

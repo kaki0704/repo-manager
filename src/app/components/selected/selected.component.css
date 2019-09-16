@@ -61,6 +61,6 @@ border: 1px dashed #000;
   font-size: 18px;
 }
 
-.btn.btn-info{
-  font-size: 6px
+.btn.btn-danger {
+  font-size: 8px;
 }
