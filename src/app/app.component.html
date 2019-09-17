@@ -10,10 +10,9 @@
 	<div ngDraggable class="list">
 		<h3 class="list-title">Search Result　　<span class="badge badge-dark" *ngFor="let repo of repos$ | async"></span></h3>
 			<ul class="list-items">
-				<app-repository *ngFor="let repo of repos$ | async" [repo]="repo" (click)="onClick(repo)"> </app-repository>
+				<app-repository *ngFor="let repo of repos$ | async" [repo]="repo"> </app-repository>
 			</ul>
 	</div>
-	
 	
 	<div class="list">
 
@@ -28,9 +27,7 @@
 	</div>
 
 	<div class="list">
-			<h3 class="list-title">Favorities　<span class="badge badge-dark">{{favorite_list.length}}/10</span>
-				<button type="button" class="btn btn-light rounded-pill" (click)="save()">保存</button>
-			</h3>	
+			<h3 class="list-title">Favorities　<span class="badge badge-dark">{{favorite_list.length}}/10</span></h3>	
 			<ul class="list-items ">
 				<app-favorite *ngFor="let favorite_item of favorite_list" [favo]="favorite_item"> </app-favorite>
 			</ul>

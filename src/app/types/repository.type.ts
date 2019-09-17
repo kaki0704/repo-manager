@@ -6,4 +6,5 @@ export interface Repository {
   url: string;
   stargazers_count: number;
   forks_count: number;
+  order_number: number;
 }

@@ -6,6 +6,7 @@ import { Repository } from './types/repository.type';
 import { select_lists } from './lists/select-list'
 import { favorite_lists } from './lists/favorite-list'
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,8 +19,7 @@ export class AppComponent implements OnInit {
   @Input() selected :Repository[] = select_lists 
   list :Repository[] =new Array();
   @Input() favorite_list :Repository[] = favorite_lists
-  show :boolean = false
-
+  show = true
   
   constructor(private githubApiService: GithubApiService) {
     if(localStorage.getItem('json') == null){
@@ -33,45 +33,35 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.favorite_list)
   }
 
   search(word: string) {
     console.log(`search: ${word}`);
-    this.repos$ = this.githubApiService.searchRepos(word);
-    console.log(this.repos$)
-    
-    
+    this.repos$ = this.githubApiService.searchRepos(word);  
   }
 
-  onClick(favorite: Repository){
-    if(this.favorite_list.length+this.selected.length+1 > 10){
-      alert("お気に入りリストには10件までしか登録できません")
-    }
-    let addable: Boolean = true
-    for(let item of this.selected){
-      if(item == favorite){
-        addable = false
-      }
-    }
-    if(addable){
-      this.selected.push(favorite)
-    }
-    this.show = true
-  }
-
-  save(){
+  private save(){
     localStorage.setItem('json', JSON.stringify(this.favorite_list));
-    alert("リポジトリを保存しました")
+    alert("お気に入りリストに追加しました")
   }
 
   add(){
-    this.selected.forEach((k, index) =>{
-        this.favorite_list.push(k);
+    select_lists.forEach((k, index) =>{
+      this.favorite_list.push(k);
+      console.log(index)
+    })
+    for (var i = select_lists.length - 1; i >= 0; i--) {
+      select_lists.splice(i, 1);
+    }
+
+    this.favorite_list.sort(function(a, b) {
+      if (a.order_number > b.order_number) {
+        return 1;
+      } else {
+        return -1;
       }
-    )
-    this.selected = []
-    this.show = false
+    })
+    this.save()
   }
 
   remove(item: Repository, from: Repository[]){

@@ -11,6 +11,8 @@ import { RepositoryComponent } from './components/repository/repository.componen
 import { SelectedComponent } from './components/selected/selected.component';
 import { FavoriteComponent } from './components/favorite/favorite.component';
 
+import { FormsModule }   from '@angular/forms';
+
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { FavoriteComponent } from './components/favorite/favorite.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [GithubApiService],
   bootstrap: [AppComponent]

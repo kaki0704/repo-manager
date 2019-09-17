@@ -1,6 +1,6 @@
 <div class="card" style="width: 18rem;" *ngIf="show">
   <div class="card-body">
-    <h5 class="card-title">{{ favo.name }}</h5>
+    <h5 class="card-title"><span class="badge badge-primary">{{favo.order_number}}</span>　{{ favo.name }}</h5>
     <p class="card-text">{{ favo.description }}</p>
     <p>&#x2b50;{{ favo.forks_count }}</p>
     <button type="button" class="btn btn-light" style="width:3rem;height:2rem;" (click)="remove(favo, favos)">削除</button>

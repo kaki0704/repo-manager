@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Repository } from './../../types/repository.type';
-import { select_lists } from './../../lists/select-list'
-import { favorite_lists } from './../../lists/favorite-list'
+import { select_lists } from './../../lists/select-list';
+import { favorite_lists } from './../../lists/favorite-list';
 
 @Component({
   selector: 'app-favorite',
@@ -32,5 +32,6 @@ export class FavoriteComponent implements OnInit {
         console.log(index)
       }
     })
+    localStorage.setItem('json', JSON.stringify(favorite_lists));
   }
 }
