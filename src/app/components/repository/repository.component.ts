@@ -19,6 +19,22 @@ export class RepositoryComponent implements OnInit {
     }
     return counter
   }
+  bgcolor(repo: Repository) :string{
+    for(let i of select_lists){
+      if(i.id == repo.id){
+        return "#808080";
+      }
+    }
+    return ''
+  }
+  fcolor(repo: Repository){
+    for(let i of select_lists){
+      if(i.id == repo.id){
+        return "#C0C0C0";
+      }
+    }
+    return ''
+  }
   show: Boolean = true
   shown() :Boolean{
     if(favorite_lists.length > 0){
@@ -58,10 +74,7 @@ export class RepositoryComponent implements OnInit {
         }
       })      
     }
-    
-    console.log(this.repo.id)
     for(let i of favorite_lists){
-      console.log(i.id)
     }
   }
 }

@@ -60,6 +60,12 @@ export class AppComponent implements OnInit {
   }
 
   add(){
+    for(let item of select_lists){
+      if(item.order_number == 0 || null){
+        alert("並び順は必ず入力してください")
+        return
+      }
+    }
     if(select_lists.length != 0){
       select_lists.forEach((k, index) =>{
         favorite_lists.push(k);
