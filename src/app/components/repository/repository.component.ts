@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Repository } from './../../types/repository.type';
 import { select_lists } from './../../lists/select-list';
-import { favorite_lists } from './../../lists/favorite-list';
+import { favorite_lists, counter1 } from './../../lists/favorite-list';
 
 @Component({
   selector: 'app-repository',
@@ -10,8 +10,31 @@ import { favorite_lists } from './../../lists/favorite-list';
 })
 export class RepositoryComponent implements OnInit {
   @Input() repo: Repository;
+  count = function(){
+    let counter = 0
+    for(let item of favorite_lists){
+      if(item.id == this.repo.id){
+        counter++
+      }
+    }
+    return counter
+  }
+  show: Boolean = true
+  shown() :Boolean{
+    if(favorite_lists.length > 0){
+      for(let i of favorite_lists){
+        if(i.id == this.repo.id){
+          return false
+        }
+      }
+      return true
+    }
+    return true
+  }
 
-  constructor() { }
+  constructor() {
+    
+   }
 
   ngOnInit() {
   }
@@ -29,10 +52,17 @@ export class RepositoryComponent implements OnInit {
     }
     if(addable){
       select_lists.push(repository)
+      select_lists.forEach((item, index)=>{
+        if(item.order_number != index+1){
+          item.order_number = index+1
+        }
+      })      
     }
-    select_lists.forEach((item, index)=>{
-      item.order_number = index+1
-    })
+    
+    console.log(this.repo.id)
+    for(let i of favorite_lists){
+      console.log(i.id)
+    }
   }
 }
 

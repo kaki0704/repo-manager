@@ -8,16 +8,21 @@
 <section class="lists-container">
 
 	<div ngDraggable class="list">
-		<h3 class="list-title">Search Result　　<span class="badge badge-dark" *ngFor="let repo of repos$ | async"></span></h3>
-			<ul class="list-items">
+		<h3 class="list-title">Search Result<span class="badge badge-dark">{{length}}</span></h3>
+			<ul class="list-items" *ngIf="repos$ | async else prog">
 				<app-repository *ngFor="let repo of repos$ | async" [repo]="repo"> </app-repository>
 			</ul>
+			<ng-template #prog>
+				<div *ngIf="loading">
+					Searching Repository...
+				</div>
+			</ng-template>
 	</div>
 	
 	<div class="list">
 
-		<h3 class="list-title">Selected Item　<span class="badge badge-dark">{{selected.length}}</span>
-			<button *ngIf="show" type="button" class="btn btn-light rounded-pill" (click)="add()">リストに追加</button>
+		<h3 class="list-title">Selected Item<span class="badge badge-dark">{{selected.length}}</span>
+			<button type="button" class="btn btn-light rounded-pill" (click)="add()">リストに追加</button>
 		</h3>
 
 		<ul class="list-items ">
@@ -27,7 +32,7 @@
 	</div>
 
 	<div class="list">
-			<h3 class="list-title">Favorities　<span class="badge badge-dark">{{favorite_list.length}}/10</span></h3>	
+			<h3 class="list-title">Favorities<span class="badge badge-dark">{{favorite_list.length}}/10</span></h3>	
 			<ul class="list-items ">
 				<app-favorite *ngFor="let favorite_item of favorite_list" [favo]="favorite_item"> </app-favorite>
 			</ul>

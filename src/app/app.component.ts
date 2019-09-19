@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { GithubApiService } from './services/github-api.service';
 import { Repository } from './types/repository.type';
 import { select_lists } from './lists/select-list'
-import { favorite_lists } from './lists/favorite-list'
+import { count, favorite_lists, reset } from './lists/favorite-list';
 
 
 @Component({
@@ -20,6 +20,17 @@ export class AppComponent implements OnInit {
   list :Repository[] =new Array();
   @Input() favorite_list :Repository[] = favorite_lists
   show = true
+  length: Number = 0
+  loading : boolean = false
+  shown(repository: Repository) :Boolean{
+    for(let i of favorite_lists){
+      if(i.id = repository.id){
+        return false
+      }else{
+        return true
+      }
+    }
+  }
   
   constructor(private githubApiService: GithubApiService) {
     if(localStorage.getItem('json') == null){
@@ -36,8 +47,11 @@ export class AppComponent implements OnInit {
   }
 
   search(word: string) {
+    this.loading = true
+    reset()
     console.log(`search: ${word}`);
-    this.repos$ = this.githubApiService.searchRepos(word);  
+    this.repos$ = this.githubApiService.searchRepos(word);
+    this.repos$.subscribe(result => {this.length = result.length-count})
   }
 
   private save(){
@@ -46,22 +60,23 @@ export class AppComponent implements OnInit {
   }
 
   add(){
-    select_lists.forEach((k, index) =>{
-      this.favorite_list.push(k);
-      console.log(index)
-    })
-    for (var i = select_lists.length - 1; i >= 0; i--) {
-      select_lists.splice(i, 1);
-    }
-
-    this.favorite_list.sort(function(a, b) {
-      if (a.order_number > b.order_number) {
-        return 1;
-      } else {
-        return -1;
+    if(select_lists.length != 0){
+      select_lists.forEach((k, index) =>{
+        favorite_lists.push(k);
+      })
+      for (var i = select_lists.length - 1; i >= 0; i--) {
+        select_lists.splice(i, 1);
       }
-    })
-    this.save()
+
+      favorite_lists.sort(function(a, b) {
+        if (a.order_number > b.order_number) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+      this.save()
+    }
   }
 
   remove(item: Repository, from: Repository[]){
