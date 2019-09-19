@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Repository } from './../../types/repository.type';
 import { select_lists } from './../../lists/select-list';
-import { favorite_lists, counter1 } from './../../lists/favorite-list';
+import { favorite_lists } from './../../lists/favorite-list';
 
 @Component({
   selector: 'app-repository',
@@ -10,15 +10,6 @@ import { favorite_lists, counter1 } from './../../lists/favorite-list';
 })
 export class RepositoryComponent implements OnInit {
   @Input() repo: Repository;
-  count = function(){
-    let counter = 0
-    for(let item of favorite_lists){
-      if(item.id == this.repo.id){
-        counter++
-      }
-    }
-    return counter
-  }
   bgcolor(repo: Repository) :string{
     for(let i of select_lists){
       if(i.id == repo.id){
@@ -49,7 +40,6 @@ export class RepositoryComponent implements OnInit {
   }
 
   constructor() {
-    
    }
 
   ngOnInit() {

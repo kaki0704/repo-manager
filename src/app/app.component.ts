@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { GithubApiService } from './services/github-api.service';
 import { Repository } from './types/repository.type';
 import { select_lists } from './lists/select-list'
-import { count, favorite_lists, reset } from './lists/favorite-list';
+import { favorite_lists } from './lists/favorite-list';
 
 
 @Component({
@@ -48,15 +48,9 @@ export class AppComponent implements OnInit {
 
   search(word: string) {
     this.loading = true
-    reset()
     console.log(`search: ${word}`);
     this.repos$ = this.githubApiService.searchRepos(word);
-    this.repos$.subscribe(result => {this.length = result.length-count})
-  }
-
-  private save(){
-    localStorage.setItem('json', JSON.stringify(this.favorite_list));
-    alert("お気に入りリストに追加しました")
+    this.repos$.subscribe(result => {this.length = result.length})
   }
 
   add(){
@@ -73,7 +67,6 @@ export class AppComponent implements OnInit {
       for (var i = select_lists.length - 1; i >= 0; i--) {
         select_lists.splice(i, 1);
       }
-
       favorite_lists.sort(function(a, b) {
         if (a.order_number > b.order_number) {
           return 1;
@@ -99,5 +92,10 @@ export class AppComponent implements OnInit {
         this.selected.splice(index, 1)
       }
     })
+  }
+
+  private save(){
+    localStorage.setItem('json', JSON.stringify(this.favorite_list));
+    alert("お気に入りリストに追加しました")
   }
 }

@@ -1,19 +1,3 @@
-/* .repository-list {
-  margin-top: 56px;
-} */
-
-/*
-
-All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 320). 
-            
-The 'supports' rule will only run if your browser supports CSS grid.
-
-Flexbox is used as a fallback so that browsers which don't support grid will still recieve an identical layout.
-
-*/
-
-/* Base styles */
-
 
 :root {
   font-size: 10px;
@@ -32,17 +16,6 @@ body {
   background-color: #0079bf;
 }
 
-/* .btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font: inherit;
-  background: none;
-  border: none;
-  color: inherit;
-  padding: 0;
-  cursor: pointer;
-} */
 
 :focus {
   outline-color: #fa0;
@@ -322,13 +295,6 @@ body {
   content: '...';
 }
 
-/*
-
-The following rule will only run if your browser supports CSS grid.
-
-Remove or comment-out the code block below to see how the browser will fall-back to flexbox styling. 
-
-*/
 
 @supports (display: grid) {
   body {
