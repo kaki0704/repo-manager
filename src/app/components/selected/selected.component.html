@@ -5,7 +5,20 @@
     </h5>
     <p class="card-text">{{ selected_item.description }}</p>
     <p>&#x2b50;{{ selected_item.forks_count }}</p>
-    <input placeholder="order number" type="text" id="name" required [(ngModel)]="selected_item.order_number"> 
-    <button type="button" class="btn btn-danger" style="width:3rem;height:2rem;" (click)="delete(selected_item)">削除</button>
+    <input
+      placeholder="order number"
+      type="text"
+      id="name"
+      required
+      [(ngModel)]="selected_item.order_number"
+    />
+    <button
+      type="button"
+      class="btn btn-danger"
+      style="width:3rem;height:2rem;"
+      (click)="delete(selected_item)"
+    >
+      削除
+    </button>
   </div>
 </div>

@@ -1,22 +1,26 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
-import { Repository } from './../types/repository.type';
-import { SearchRepositories } from './../types/search-repositories.type';
+import { Repository } from "./../types/repository.type";
+import { SearchRepositories } from "./../types/search-repositories.type";
 
 @Injectable()
 export class GithubApiService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getRepos(): Observable<Repository[]> {
-    return this.http.get<Repository[]>('https://api.github.com/users/vsavkin/repos');
+    return this.http.get<Repository[]>(
+      "https://api.github.com/users/vsavkin/repos"
+    );
   }
 
   searchRepos(word: string): Observable<Repository[]> {
-    return this.http.get<SearchRepositories>(`https://api.github.com/search/repositories?q=${word}`)
+    return this.http
+      .get<SearchRepositories>(
+        `https://api.github.com/search/repositories?q=${word}`
+      )
       .pipe(map(res => res.items));
   }
 }

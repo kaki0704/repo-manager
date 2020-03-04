@@ -1,37 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Repository } from './../../types/repository.type';
-import { select_lists } from './../../lists/select-list';
-import { favorite_lists } from './../../lists/favorite-list';
+import { Component, OnInit, Input } from "@angular/core";
+import { Repository } from "./../../types/repository.type";
+import { select_lists } from "./../../lists/select-list";
+import { favorite_lists } from "./../../lists/favorite-list";
 
 @Component({
-  selector: 'app-favorite',
-  templateUrl: './favorite.component.html',
-  styleUrls: ['./favorite.component.css']
+  selector: "app-favorite",
+  templateUrl: "./favorite.component.html",
+  styleUrls: ["./favorite.component.css"]
 })
-
 export class FavoriteComponent implements OnInit {
+  @Input() favo: Repository;
+  @Input() favos: Repository[] = favorite_lists;
+  @Input() selects: Repository[] = select_lists;
 
-  @Input() favo :Repository;
-  @Input() favos :Repository[] = favorite_lists
-  @Input() selects :Repository[] = select_lists
+  constructor() {}
 
-  constructor() {
-  }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
+  show: Boolean = true;
 
-  show: Boolean = true
-
-  remove(item: Repository, from: Repository[]){
-    console.log(from)
-    from.forEach((k, index) =>{
-      console.log(k)
-      if(k == item){
-        from.splice(index, 1)
-        console.log(index)
+  remove(item: Repository, from: Repository[]) {
+    from.forEach((k, index) => {
+      if (k == item) {
+        from.splice(index, 1);
       }
-    })
-    localStorage.setItem('json', JSON.stringify(favorite_lists));
+    });
+    localStorage.setItem("json", JSON.stringify(favorite_lists));
   }
 }
